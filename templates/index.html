@@ -6,7 +6,20 @@
 <body>
 
     <h1>AI Medical Report Analyzer</h1>
-    <p>Welcome to the AI Medical Report Analyzer.</p>
+
+    <h3>Upload your medical report</h3>
+
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+
+        <input type="file" name="report" accept=".pdf,.png,.jpg,.jpeg" required>
+
+        <br><br>
+
+        <button type="submit">
+            Analyze Report
+        </button>
+
+    </form>
 
 </body>
 </html>
