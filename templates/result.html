@@ -1,17 +1,136 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Upload Successful</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Medical Report Analysis</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f5f7fa;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .filename {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 14px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background-color: #eeeeee;
+        }
+
+        .normal {
+            color: green;
+            font-weight: bold;
+        }
+
+        .high {
+            color: red;
+            font-weight: bold;
+        }
+
+        .low {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .back {
+            display: block;
+            margin-top: 30px;
+            text-align: center;
+        }
+    </style>
+
 </head>
+
 <body>
 
-    <h1>✅ Report Uploaded Successfully</h1>
+    <div class="container">
 
-    <p><strong>File Name:</strong> {{ filename }}</p>
+        <h1>Medical Report Analysis</h1>
 
-    <br>
+        <p class="filename">
+            Report: <strong>{{ filename }}</strong>
+        </p>
 
-    <a href="/">Upload Another Report</a>
+        {% if analysis %}
+
+        <table>
+
+            <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+                <th>Reference Range</th>
+                <th>Status</th>
+            </tr>
+
+            {% for parameter, result in analysis.items() %}
+
+            <tr>
+
+                <td>
+                    {{ parameter }}
+                </td>
+
+                <td>
+                    {{ result.value }} {{ result.unit }}
+                </td>
+
+                <td>
+                    {{ result.low }} - {{ result.high }} {{ result.unit }}
+                </td>
+
+                <td class="{{ result.status|lower }}">
+                    {{ result.status }}
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+        {% else %}
+
+        <p>No medical parameters were detected.</p>
+
+        {% endif %}
+
+        <a class="back" href="/">
+            Upload Another Report
+        </a>
+
+    </div>
 
 </body>
+
 </html>
